@@ -18,23 +18,24 @@ db.serialize(function () {
   db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
     console.log(row.id + ': ' + row.info)
   })
-const router = Router()
+  const router = Router()
 
-router.use(express.json())
+  router.use(express.json())
 
 
-router.get('/db', function(req, res, next) {
-    res.json({foo: 1})
-})
-
-router.get('/db/:id', function(req, res, next) {
-  let id = req.params.id
-  let sql = `SELECT rowid AS id, info FROM lorem where rowid = ${id}`
-  console.log(sql)
-  db.get(sql, function (err, row) {
-    console.log(row.id + ': ' + row.info)
-    res.json(row)
+  router.get('/db', function(req, res, next) {
+      res.json({foo: 1})
   })
-})
 
-module.exports = router
+  router.get('/db/:id', function(req, res, next) {
+    let id = req.params.id
+    let sql = `SELECT rowid AS id, info FROM lorem where rowid = ${id}`
+    console.log(sql)
+    db.get(sql, function (err, row) {
+      console.log(row.id + ': ' + row.info)
+      res.json(row)
+    })
+  })
+
+  module.exports = router
+})
